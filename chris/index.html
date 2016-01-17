@@ -1,0 +1,91 @@
+<html ng-app="fireLearning">
+<head>
+  <meta charset="UTF-8">
+  <title>Fire Learning</title>
+
+  <!-- Firebase -->
+  <script src="https://cdn.firebase.com/js/client/2.2.7/firebase.js"></script>
+
+  <!-- Angular -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-route.js"></script>
+
+  <!-- AngularFire -->
+  <script src="https://cdn.firebase.com/libs/angularfire/1.1.1/angularfire.min.js"></script>
+  <!-- <script src="js/app.js"></script> -->
+
+  <!-- <link rel="stylesheet" href="css/app.css"> -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.13.4.js"></script>
+  <script src="index.js"></script>
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body ng-controller="AuthCtrl">
+  <div class="header">
+    <div ng-hide="authData" class="authButtons">
+      <div class="authButton"  ng-click="login('google')"> Google </div>
+
+      <div class="authButton"  ng-click="login('github')"><b>Github</b></div>
+
+      <div class="authButton"  ng-click="login('facebook')">Facebook</div>
+      <!--
+      <button class="loginButton authButton" ng-click="openUserLoginUsingEmail()">Login</button>
+      -->
+    </div>
+
+    <div ng-show="authData" class="authButtons">
+      <button class="loginButton authButton" ng-click="logout()">Logout</button>
+    </div>
+    <div ng-hide="authData" class="sc-float-left mainTitle">Firebase & Angular Authentication</div>
+    <div ng-show="authData" class="sc-float-left logged-in-user-info">
+      <img class="profileImage" ng-src="{{getUserImage()}}" />
+      <div class="headerField">
+        <div class="userName"> {{cachedProfile.name}} </div>
+        <div class="email"> {{cachedProfile.email}}</div>
+      </div>
+    </div>
+  </div>
+  <div ng-show="true"><!--</div>authData"> class=content-->
+      <br><br><br>
+      <h3>Events</h3><div class="authButton"  ng-click="load_events()"> Refresh events </div>
+      <ol>
+        <li ng-repeat="d in events | limitTo:5">
+          {{d.title}}
+        </li>
+      </ol>
+      
+      <h3>Code School</h3>
+      <ol>
+        <li ng-repeat="d in data['codeCombat']">
+          {{d.name}}
+        </li>
+      </ol>
+      <h3>Code Combat</h3>
+        <ol>
+        <li ng-repeat="d in data['codeSchool']">
+          {{d.name}}
+        </li>
+      </ol>
+
+  </div>
+  
+  <script type="text/ng-template" id="userLoginUsingEmail.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Login</h3>
+        </div>
+        <div class="modal-body">
+          <input type="text" placeholder="Email" class="form-control"/>
+          <input type="password" placeholder="Password" class="form-control"/>
+        </div>
+        <div class="modal-footer">
+            <button class="sc-float-left btn btn-primary" type="button" ng-click="signup()">Sign up</button>
+            <button class="btn btn-primary" type="button" ng-click="">Login</button>
+            <button class="btn btn-warning" type="button" ng-click="cancelLogin()">Cancel</button>
+        </div>
+    </script>
+    
+    
+</body>
+</html>
